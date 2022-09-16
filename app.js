@@ -39,19 +39,18 @@ const movies =
 	];
 
 const getMovies = (req, res) => {
-	res.status(200).send(
-		movies
-	)
+	res.status(200).send(movies);
 }
 
 app.get("/api/movies", getMovies);
 
-app.get("/api/movies/:id", async function (req, res) {
-	let id = req.params.id;
-	let movie = await movies.find(movie => id);
+const getMovie = (req, res) => {
+	const movie = movies.find(m => m.id === parseInt(req.params.id));
+	if (!movie) res.status(404).send('not found');
+	res.send(movie);
+}
 
-	res.status(200).send(movie)
-})
+app.get("/api/movies/:id", getMovie)
 
 app.listen(port, (err) => {
 	if (err) {
