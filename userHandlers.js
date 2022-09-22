@@ -73,7 +73,7 @@ const deleteUser = (req, res) => {
 	const id = parseInt(req.params.id);
 
 	database
-		.query("delete from movies where id = ?", [id])
+		.query("delete from users where id = ?", [id])
 		.then(([result]) => {
 			if (result.affectedRows === 0) {
 				res.status(404).send("not found");
@@ -83,7 +83,7 @@ const deleteUser = (req, res) => {
 		})
 		.catch((err) => {
 			console.error(err);
-			res.status(500).send("Error deleting the movie");
+			res.status(500).send("Error deleting user");
 		});
 };
 
